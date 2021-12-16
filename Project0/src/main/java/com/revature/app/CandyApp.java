@@ -66,27 +66,27 @@ public class CandyApp {
 				});
 				
 				// localhost:8080/pets/adopt/8
-				path("/adopt/{id}", () -> {
-					put(ctx -> {
-						try {
-							int userId = Integer.parseInt(ctx.pathParam("id")); // num format exception
-							User newOwner = ctx.bodyAsClass(User.class);
+				//path("/adopt/{id}", () -> {
+					//put(ctx -> {
+						//try {
+							//int userId = Integer.parseInt(ctx.pathParam("id")); // num format exception
+							//User newOwner = ctx.bodyAsClass(User.class);
 							// returns the person with their new pet added
-							newOwner = userServ.adoptCandy(candyId, newOwner);  //adopt candy?, needs revision
-							ctx.json(newOwner);
-						} catch (NumberFormatException e) {
-							ctx.status(400);
-							ctx.result("Candy ID must be a numeric value");
-						}
-					});
-				});
+							//newOwner = userServ.adoptCandy(candyId, newOwner);  //adopt candy?, needs revision
+							//ctx.json(newOwner);
+						//} catch (NumberFormatException e) {
+							//ctx.status(400);
+							//ctx.result("Candy ID must be a numeric value");
+						//}
+					//});
+				//});
 				
 				// localhost:8080/pets/8
 				path("/{id}", () -> {
 					
 					get(ctx -> {
 						try {
-							int petId = Integer.parseInt(ctx.pathParam("id")); // num format exception
+							int candyId = Integer.parseInt(ctx.pathParam("id")); // num format exception
 							Candy candy = empServ.getCandyById(candyId);
 							if (candy != null)
 								ctx.json(candy);
