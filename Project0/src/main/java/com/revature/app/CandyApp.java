@@ -37,7 +37,7 @@ public class CandyApp {
 		 (in your p0, these endpoints are provided to you.)
 		*/
 		app.routes(() -> {
-			// localhost:8080/pets
+			// localhost:8080/pets (candy in this case)
 			path("/candy", () -> {
 				get(ctx -> {
 					// checking if they did /pets?species=
