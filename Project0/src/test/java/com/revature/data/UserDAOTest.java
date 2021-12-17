@@ -3,8 +3,6 @@ package com.revature.data;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals; //on hold until getALLNotNull is fixed
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import com.revature.beans.User;
 import com.revature.data.postgres.UserPostgres;

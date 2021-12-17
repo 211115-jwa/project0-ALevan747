@@ -13,13 +13,17 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User register(User newUser) {
-		// TODO Auto-generated method stub
+		int newId = userDAO.create(newUser);
+		if (newId != 0) {
+			newUser.setId(newId);
+			return newUser;
+		}
 		return null;
 	}
 	@Override
-	public User logIn(String Username, String Password) {
-		User userFromDatabase = userDAO.getByUsername(Username);
-		if(userFromDatabase != null && userFromDatabase.getPassword().equals(Password)) {
+	public User logIn(String username, String password) {
+		User userFromDatabase = userDAO.getByUsername(username);
+		if(userFromDatabase != null && userFromDatabase.getPassword().equals(password)) {
 			return userFromDatabase;
 		}
 		return null;
