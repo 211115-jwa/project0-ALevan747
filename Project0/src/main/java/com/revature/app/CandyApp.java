@@ -44,7 +44,6 @@ public class CandyApp {
 						Set<Candy> candyFound = userServ.searchAvailableCandybyFlavor(flavorSearch);
 						ctx.json(candyFound);
 					} else {
-						// if they didn't put ?species
 						Set<Candy> availableCandy = userServ.viewAvailableCandy();
 						ctx.json(availableCandy);
 					}

@@ -1,15 +1,21 @@
 package com.revature.services;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import com.revature.beans.Candy;
+import com.revature.beans.User;
 import com.revature.data.CandyDAO;
 import com.revature.data.UserDAO;
 
@@ -40,6 +46,136 @@ public class UserServiceTest {
 				candy.setFlavor("cherry");
 			mockAvailableCandy.add(candy);
 		}	
+	}
+	
+	@Test
+	public void logInSuccessfully() {
+		// input setup
+		String username="qwertyuiop";
+		String password="pass";
+		
+		// set up the mocking
+		User mockUser = new User();
+		mockUser.setUsername(username);
+		mockUser.setPassword(password);
+		when(userDAO.getByUsername(username)).thenReturn(mockUser);
+		
+		// call the method we're testing
+		User actualUser = userServ.logIn(username, password);
+		
+		// assert the expected behavior/output
+		assertEquals(mockUser,actualUser);
+	}
+	
+	@Test
+	public void logInIncorrectPassword() {
+		String username="qwertyuiop";
+		String password="12345";
+		
+		User mockUser = new User();
+		mockUser.setUsername(username);
+		mockUser.setPassword("pass");
+		when(userDAO.getByUsername(username)).thenReturn(mockUser);
+		
+		User actualUser = userServ.logIn(username, password);
+		assertNull(actualUser);
+	}
+	
+	@Test
+	public void logInUsernameDoesNotExist() {
+		String username="asdfghjkl";
+		String password="pass";
+		
+		when(userDAO.getByUsername(username)).thenReturn(null);
+		
+		User actualUser = userServ.logIn(username, password);
+		assertNull(actualUser);
+	}
+	
+	@Test
+	public void registerUserSuccessfully() {
+		User user = new User();
+		
+		when(userDAO.create(user)).thenReturn(10);
+		
+		User actualUser = userServ.register(user);
+		assertEquals(10, actualUser.getId());
+	}
+	
+	@Test
+	public void registerUserSomethingWrong() {
+		User user = new User();
+		when(userDAO.create(user)).thenReturn(0);
+		User actualUser = userServ.register(user);
+		assertNull(actualUser);
+	}
+	
+	@Test
+	public void searchByFlavorExists() {
+		String flavor = "Blue Berry";
+		
+		//when(userDAO.getByStatus("Available")).thenReturn(mockAvailablePets); add status? or swap with instock?
+		
+		//Set<Candy> actualCats = userServ.searchAvailablePetsBySpecies(species);
+		//boolean onlyCats = true;
+		//for (Pet pet : actualCats) {
+		//	if (!pet.getSpecies().equals(species))
+			//	onlyCats = false;
+		//}
+		
+		//assertTrue(onlyCats);
+	}
+	
+	@Test
+	public void searchByFlavorDoesNotExist() {
+		String flavor = "qwertyuiop";
+		
+		when(candyDAO.getByStatus("Available")).thenReturn(mockAvailableCandy);
+		
+		Set<Candy> actualCandy = userServ.searchAvailableCandybyFlavor(flavor);
+		assertTrue(actualCandy.isEmpty());
+	}
+	
+	//have alternate to adopting pet in candy form?
+	//Then verify "adoption"?
+	
+	@Test
+	public void updateSuccessfully() {
+		User mockUser = new User();
+		mockUser.setId(1);
+		
+		doNothing().when(userDAO).update(Mockito.any(User.class));
+		when(userDAO.getById(1)).thenReturn(mockUser);
+		
+		User user = new User();
+		user.setId(1);
+		user.setUsername("qwertyuiop");
+		User updatedUser = userServ.updateUser(user);
+		assertNotEquals(user, updatedUser);
+	}
+	
+	@Test
+	public void updateSomethingWrong() {
+		User mockUser = new User();
+		mockUser.setId(1);
+		
+		doNothing().when(userDAO).update(Mockito.any(User.class));
+		when(userDAO.getById(1)).thenReturn(mockUser);
+		
+	    User user = new User();
+		user.setId(1);
+		user.setUsername("qwertyuiop");
+		User updatedUser = userServ.updateUser(user);
+		assertNotEquals(user, updatedUser);
+	}
+	
+	@Test
+	public void viewAvailableCandy() {
+		when(candyDAO.getByStatus("Available")).thenReturn(mockAvailableCandy); //again a status or inStock boolean equivalent is needed
+		
+		Set<Candy> actualCandy = userServ.viewAvailableCandy();
+		
+		assertEquals(mockAvailableCandy, actualCandy);
 	}
 	
 

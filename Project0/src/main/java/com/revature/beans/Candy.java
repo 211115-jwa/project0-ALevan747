@@ -1,14 +1,12 @@
 package com.revature.beans;
 
-import java.util.Objects;
-
 public class Candy {
 	Integer id;
 	String name = "name";
 	String brand = "brand";
 	String flavor = "flavor";
 	Boolean isSugarFree = false;
-	Boolean inStock;
+	Boolean inStock = true;
 	
 	public Candy() {
 		id = 0;
@@ -72,7 +70,14 @@ public class Candy {
 	//needs work
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, flavor, id, inStock, isSugarFree, name);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((flavor == null) ? 0 : flavor.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
+		//result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
 	}
 
 	@Override
@@ -84,12 +89,34 @@ public class Candy {
 		if (getClass() != obj.getClass())
 			return false;
 		Candy other = (Candy) obj;
-		return Objects.equals(brand, other.brand) && Objects.equals(flavor, other.flavor)
-				&& Objects.equals(id, other.id) && Objects.equals(inStock, other.inStock)
-				&& Objects.equals(isSugarFree, other.isSugarFree) && Objects.equals(name, other.name);
+		if (flavor == null) {
+			if (other.flavor != null)
+				return false;
+		} else if (!flavor.equals(other.flavor))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (brand == null) {
+			if (other.brand != null)
+				return false;
+		} else if (!brand.equals(other.brand))
+			return false;
+		//if (status == null) {
+			//if (other.status != null)
+				//return false;
+		//} else if (!status.equals(other.status))
+			//return false;
+		return true;
 	}
 	
-	
-	
-
+	@Override
+	public String toString() {
+		return "Pet [id=" + id + ", name=" + name + ", brand=" + brand + ", flavor=" + flavor + "]";
+		//status=" + status + "
+	}
 }
