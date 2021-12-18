@@ -190,7 +190,7 @@ public class CandyPostgres implements CandyDAO {
 
 			// while the result set has another row
 			while (resultSet.next()) {
-				// create the Pet object
+				// create the object (Candy in this case)
 				Candy candy = new Candy();
 				// pull the data from each row in the result set
 				// and put it into the java object so that we can use it here

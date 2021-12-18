@@ -30,7 +30,11 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public User updateUser(User userToUpdate) {
-		// TODO Auto-generated method stub
+		if(userDAO.getById(userToUpdate.getId()) != null) {
+			userDAO.update(userToUpdate);
+			userToUpdate = userDAO.getById(userToUpdate.getId());
+			return userToUpdate;
+		}
 		return null;
 	}
 	@Override
@@ -39,13 +43,12 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 	@Override
-	public Set<Candy> viewAvailableCandy() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Candy> viewAvailableCandy() {  //add available to database 
+		return candyDAO.getByStatus("Available");
 	}
 	@Override
 	public Set<Candy> searchAvailableCandybyFlavor(String Flavor) {
-		// TODO Auto-generated method stub
+		Set<Candy> availableCandy = candyDAO.getByStatus("Available");
 		return null;
 	}
 }
