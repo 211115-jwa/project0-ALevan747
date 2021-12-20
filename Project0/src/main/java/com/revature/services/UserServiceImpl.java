@@ -6,10 +6,12 @@ import com.revature.beans.Candy;
 import com.revature.beans.User;
 import com.revature.data.CandyDAO;
 import com.revature.data.UserDAO;
+import com.revature.data.postgres.CandyPostgres;
+import com.revature.data.postgres.UserPostgres;
 
 public class UserServiceImpl implements UserService {
-	private UserDAO userDAO;
-	private CandyDAO candyDAO;
+	private UserDAO userDAO = new UserPostgres();
+	private CandyDAO candyDAO = new CandyPostgres();
 	
 	@Override
 	public User register(User newUser) {
@@ -42,13 +44,22 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//@Override
+	//public Set<Candy> viewAllCandy() {  //add instock yes no to database, default yes. Change to instock?
+		//return candyDAO.getInStock("Yes");
+	//}
 	@Override
-	public Set<Candy> viewAvailableCandy() {  //add available to database 
-		return candyDAO.getByStatus("Available");
+	public Set<Candy> searchAllCandybyFlavor(String Flavor) {
+		Set<Candy> availableCandy = candyDAO.getInStock("yes");
+		return availableCandy;
 	}
 	@Override
 	public Set<Candy> searchAvailableCandybyFlavor(String Flavor) {
-		Set<Candy> availableCandy = candyDAO.getByStatus("Available");
+		//to stream? or not to stream?
 		return null;
+	}
+	@Override
+	public Set<Candy> getAll() {
+		return candyDAO.getAll();
 	}
 }

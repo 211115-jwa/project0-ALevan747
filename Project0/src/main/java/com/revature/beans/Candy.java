@@ -6,7 +6,7 @@ public class Candy {
 	String brand = "brand";
 	String flavor = "flavor";
 	Boolean isSugarFree = false;
-	Boolean inStock = true;
+	String inStock;
 	
 	public Candy() {
 		id = 0;
@@ -14,7 +14,7 @@ public class Candy {
 		brand = "Brand";
 		flavor = "Flavor";
 		isSugarFree = false;
-		inStock = true;
+		inStock = "Yes";
 	}
 
 	public Integer getId() {
@@ -57,11 +57,11 @@ public class Candy {
 		this.isSugarFree = isSugarFree;
 	}
 
-	public Boolean getInStock() {
+	public String getInStock() {
 		return inStock;
 	}
 
-	public void setInStock(Boolean inStock) {
+	public void setInStock(String inStock) {
 		this.inStock = inStock;
 	}
 	
@@ -76,7 +76,7 @@ public class Candy {
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
-		//result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((inStock == null) ? 0 : inStock.hashCode());
 		return result;
 	}
 
@@ -106,17 +106,17 @@ public class Candy {
 				return false;
 		} else if (!brand.equals(other.brand))
 			return false;
-		//if (status == null) {
-			//if (other.status != null)
-				//return false;
-		//} else if (!status.equals(other.status))
-			//return false;
+		if (inStock == null) {
+			if (other.inStock != null)
+				return false;
+		} else if (!inStock.equals(other.inStock))
+			return false;
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", name=" + name + ", brand=" + brand + ", flavor=" + flavor + "]";
-		//status=" + status + "
+		return "candy [id=" + id + ", name=" + name + ", brand=" + brand + ", flavor=" + flavor + 
+		       "inStock=" + inStock + "]";
 	}
 }

@@ -11,8 +11,8 @@ public interface UserService {
 	public User logIn(String Username, String Password);
 	public User updateUser(User userToUpdate);
 	public User buyCandy(int Id, User newBuyer);
-	public Set<Candy> viewAvailableCandy();
 	public Set<Candy> searchAvailableCandybyFlavor(String Flavor);
-	
-
+	//public Set<Candy> viewAllCandy(); //previous attempt
+	public Set<Candy> searchAllCandybyFlavor(String Flavor);
+	public Set<Candy> getAll();
 }

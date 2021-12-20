@@ -25,7 +25,7 @@ public class UserPostgres implements UserDAO{
 			//when you run DML statements, you want to manage the TCL
 			conn.setAutoCommit(false);
 			
-			String sql = "insert into person(id,Name,Username,password) "
+			String sql = "insert into Users(id,Name,Username,password) "
 					+ "values (default, ?, ?, ?)";
 			String[] keys = {"id"};   //the name of the primary key column that will be autogenrated
 			//creating the prepared statement
@@ -58,7 +58,7 @@ public class UserPostgres implements UserDAO{
 		User user = null;
 		
 		try(Connection conn = connUtil.getConnection()){
-			String sql = "select * from User where id=?";
+			String sql = "select * from Users where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1,id);
 			
@@ -84,7 +84,7 @@ public class UserPostgres implements UserDAO{
 		Set<User> allUsers = new HashSet<>();
 		
 		try(Connection conn = connUtil.getConnection()){
-			String sql = "select * from candy";  //why select all from candy and not user?
+			String sql = "select * from Users";  //why select all from candy and not user?
 			Statement stmt = conn.createStatement();
 			ResultSet resultSet = stmt.executeQuery(sql);
 			
@@ -113,7 +113,7 @@ public class UserPostgres implements UserDAO{
 		try(Connection conn = connUtil.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "update User set " + "Name=?,Username=?,Password=? "
+			String sql = "update Users set " + "Name=?,Username=?,Password=? "
 			+ "where id=?";
 		    PreparedStatement pStmt = conn.prepareStatement(sql);
 		    pStmt.setString(1, dataToUpdate.getName());
@@ -138,7 +138,7 @@ public class UserPostgres implements UserDAO{
 		try(Connection conn = connUtil.getConnection()){
 			conn.setAutoCommit(false);
 			
-			String sql = "delete from User " + "where id=?";
+			String sql = "delete from Users " + "where id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, dataToDelete.getId());
 			
@@ -161,7 +161,7 @@ public class UserPostgres implements UserDAO{
 		User user = null;
 		
 		try(Connection conn = connUtil.getConnection()){
-			String sql = "select * from User where Username=?";
+			String sql = "select * from Users where Username=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, Username); //double check capitalizations later
 			

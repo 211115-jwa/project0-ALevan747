@@ -7,6 +7,7 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import java.util.Set;
 import org.eclipse.jetty.http.HttpStatus;
 import com.revature.beans.Candy;
+import com.revature.beans.User;
 import com.revature.services.EmployeeService;
 import com.revature.services.EmployeeServiceImpl;
 import com.revature.services.UserService;
@@ -35,8 +36,9 @@ public class CandyApp {
 			// localhost:8080/pets (candy in this case)
 			path("/candy", () -> {
 				get(ctx -> {
-					// checking if they did /pets?species=
+					// checking if they did /pets?species= (In this case, the user could search for flavors)
 					String flavorSearch = ctx.queryParam("flavor");
+					
 					// when using .equals with a String literal, put the
 					// String literal first because it prevents null pointer
 					// exceptions
@@ -44,8 +46,8 @@ public class CandyApp {
 						Set<Candy> candyFound = userServ.searchAvailableCandybyFlavor(flavorSearch);
 						ctx.json(candyFound);
 					} else {
-						Set<Candy> availableCandy = userServ.viewAvailableCandy();
-						ctx.json(availableCandy);
+						Set<Candy> allCandy = userServ.getAll(); //viewAllCandy() old
+						ctx.json(allCandy);
 					}
 				});
 				post(ctx -> {
@@ -59,8 +61,8 @@ public class CandyApp {
 					}
 				});
 				
-				// localhost:8080/pets/adopt/8
-				//path("/adopt/{id}", () -> {
+				// localhost:8080/pets/adopt/8   in this case localhost:8080/candy/{id}
+				//path("/candy/{id}", () -> {
 					//put(ctx -> {
 						//try {
 							//int userId = Integer.parseInt(ctx.pathParam("id")); // num format exception
@@ -76,7 +78,7 @@ public class CandyApp {
 				//});
 				
 				// localhost:8080/pets/8
-				path("/{id}", () -> {
+				path("candy/{id}", () -> {
 					
 					get(ctx -> {
 						try {

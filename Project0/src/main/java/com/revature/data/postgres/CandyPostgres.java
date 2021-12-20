@@ -85,7 +85,7 @@ public class CandyPostgres implements CandyDAO {
 		Set<Candy> allCandy = new HashSet<>();
 		
 		try (Connection conn = connUtil.getConnection()) {
-			String sql = "select * from candy";
+			String sql = "SELECT * FROM Candy";
 			Statement stmt = conn.createStatement();
 			ResultSet resultSet = stmt.executeQuery(sql);
 			
@@ -153,7 +153,7 @@ public class CandyPostgres implements CandyDAO {
 
 			int rowsAffected = pStmt.executeUpdate();
 
-			if (rowsAffected==1) {
+			if (rowsAffected==1) {  //possibly delete
 				//candy owner or buyer?
 				sql="delete from candy_owner where candy_id=?";
 				PreparedStatement pStmt2 = conn.prepareStatement(sql);
@@ -176,13 +176,13 @@ public class CandyPostgres implements CandyDAO {
 
 	// made by alchemy w/ small edits by sierra
 	@Override
-	public Set<Candy> getByStatus(String status) {
+	public Set<Candy> getInStock(String inStock) {
 		Set<Candy> allCandy = new HashSet<>();
 
 		try (Connection conn = connUtil.getConnection()) {
-			String sql = "select * from pet where status=?";
+			String sql = "select * from candy where inStock=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, status);
+			pStmt.setString(1, inStock);
 	
 			ResultSet resultSet = pStmt.executeQuery();
 
@@ -206,5 +206,4 @@ public class CandyPostgres implements CandyDAO {
 
 		return allCandy;
 	}
-
 }
