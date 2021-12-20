@@ -5,8 +5,8 @@ public class Candy {
 	String name = "name";
 	String brand = "brand";
 	String flavor = "flavor";
-	Boolean isSugarFree = false;
 	String inStock;
+	Boolean isSugarFree = false;
 	
 	public Candy() {
 		id = 0;

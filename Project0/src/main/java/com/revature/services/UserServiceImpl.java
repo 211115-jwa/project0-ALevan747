@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.revature.beans.Candy;
@@ -49,12 +50,19 @@ public class UserServiceImpl implements UserService {
 		//return candyDAO.getInStock("Yes");
 	//}
 	@Override
-	public Set<Candy> searchAllCandybyFlavor(String Flavor) {
-		Set<Candy> availableCandy = candyDAO.getInStock("yes");
-		return availableCandy;
+	public Set<Candy> searchAllCandybyFlavor(String flavor) {
+		Set<Candy> inStockCandy = candyDAO.getInStock("yes");
+		//not streaming here
+		Set<Candy> candyByFlavor = new HashSet<>();
+		for(Candy candy : inStockCandy) {
+			if(candy.getFlavor().toLowerCase().contains(flavor.toLowerCase())) {
+				candyByFlavor.add(candy);
+			}
+		}
+		return inStockCandy;
 	}
 	@Override
-	public Set<Candy> searchAvailableCandybyFlavor(String Flavor) {
+	public Set<Candy> searchAvailableCandybyFlavor(String Flavor) { //example that is obsolete with searchallCandyByFlavor
 		//to stream? or not to stream?
 		return null;
 	}

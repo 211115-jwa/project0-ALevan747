@@ -48,7 +48,6 @@ public class UserDAOTest {
 		//use userdao to test that create method is not null
 	}
 	
-	//@Order(1)
 	@Test
 	public void getByUsernameWhenUsernameExists() {
 		//setup
@@ -57,20 +56,14 @@ public class UserDAOTest {
 		User userOutput = userDAO.getByUsername(UsernameInput);
 		//assert that it did what we expected it to do
 		assertEquals("Andre", userOutput.getUsername());
+		//still has issues
 	}
 	
-	//@Order(2)
+
 	public void getByUsernameButUsernameDoesNotExist() {
 		String usernameInput = "qazwsxedcrfv";
 		User userOutput = userDAO.getByUsername(usernameInput);
 		assertNull(userOutput);
 	}
 }
-	//JUnit test will be annoted with @Test
-	//they are public, void, and have no parameters
-	
-	
-	//what follows are basic example test for teaching purposes and hold no weight on the actual CandyApp project
-	
-	//public void BasicTest(){
-	//}
+

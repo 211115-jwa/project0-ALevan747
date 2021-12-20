@@ -33,18 +33,18 @@ public class UserServiceTest {
 	@InjectMocks
 	private UserService userServ = new UserServiceImpl();
 	
-	private static Set<Candy> mockAvailableCandy;
+	private static Set<Candy> mockAllCandy;
 	
 	@BeforeAll
 	public static void mockAvailableCandySetup() {
-		mockAvailableCandy = new HashSet<>();
+		mockAllCandy = new HashSet<>();
 		
 		for(int i=1; i <= 5; i++) {
 			Candy candy = new Candy();
 			candy.setId(i);
 			if(i<3)
 				candy.setFlavor("cherry");
-			mockAvailableCandy.add(candy);
+			mockAllCandy.add(candy);
 		}	
 	}
 	
@@ -171,11 +171,11 @@ public class UserServiceTest {
 	
 	@Test
 	public void getAll() {
-		when(candyDAO.getInStock("yes")).thenReturn(mockAvailableCandy); //again a status or inStock boolean equivalent is needed
+		when(candyDAO.getInStock("yes")).thenReturn(mockAllCandy); //again a status or inStock boolean equivalent is needed
 		
 		Set<Candy> actualCandy = userServ.getAll();
 		
-		assertEquals(mockAvailableCandy, actualCandy);
+		assertEquals(mockAllCandy, actualCandy);
 	}
 	
 

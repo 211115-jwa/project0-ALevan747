@@ -2,12 +2,12 @@ package com.revature.data;
 
 import java.util.Set;
 
-public interface GenericDAO<D> {
+public interface GenericDAO<DAO> {
 	//CRUD operations should be used to access database
-	public int create(D dataToAdd);
-	public D getById(int id);
-	public Set<D> getAll();
-	public void update(D dataToUpdate);
-	public void delete(D dataToDelete);
+	public int create(DAO dataToAdd);
+	public DAO getById(int id);
+	public Set<DAO> getAll();
+	public void update(DAO dataToUpdate);
+	public void delete(DAO dataToDelete);
 
 }

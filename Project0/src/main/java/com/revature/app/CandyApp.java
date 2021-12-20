@@ -24,34 +24,32 @@ public class CandyApp {
 		Javalin app = Javalin.create();
 		
 		app.start();
-		
 		/*
 		 what endpoints do we need?
 		 in other words, what actions would a user need to do
 		 and what address + HTTP method combo would represent
 		 each of those actions?
-		 (in your p0, these endpoints are provided to you.)
 		*/
 		app.routes(() -> {
 			// localhost:8080/pets (candy in this case)
 			path("/candy", () -> {
 				get(ctx -> {
-					// checking if they did /pets?species= (In this case, the user could search for flavors)
+					// checking if they did /pets?species= (In this case, the user could search for flavor and brand)
 					String flavorSearch = ctx.queryParam("flavor");
-					
-					// when using .equals with a String literal, put the
-					// String literal first because it prevents null pointer
-					// exceptions
+					String brandSearch = ctx.queryParam("brand");
+					//space for more strings to filter gets
 					if (flavorSearch != null && !"".equals(flavorSearch)) {
-						Set<Candy> candyFound = userServ.searchAvailableCandybyFlavor(flavorSearch);
+						Set<Candy> candyFound = userServ.searchAllCandybyFlavor(flavorSearch);
 						ctx.json(candyFound);
-					} else {
+					} else if(brandSearch != null && !"".equals(brandSearch)) {
+						//Set<Candy> candyFound2 = userServ.search
+						
+					}else {
 						Set<Candy> allCandy = userServ.getAll(); //viewAllCandy() old
-						ctx.json(allCandy);
+						ctx.json(allCandy); 
 					}
 				});
 				post(ctx -> {
-					// bodyAsClass turns JSON into a Java object based on the class you specify
 					Candy newCandy = ctx.bodyAsClass(Candy.class);
 					if (newCandy !=null) {
 						empServ.addNewCandy(newCandy);
@@ -67,27 +65,27 @@ public class CandyApp {
 						//try {
 							//int userId = Integer.parseInt(ctx.pathParam("id")); // num format exception
 							//User newOwner = ctx.bodyAsClass(User.class);
-							// returns the person with their new pet added
+							 //returns the person with their new pet added
 							//newOwner = userServ.adoptCandy(candyId, newOwner);  //adopt candy?, needs revision
 							//ctx.json(newOwner);
 						//} catch (NumberFormatException e) {
-							//ctx.status(400);
-							//ctx.result("Candy ID must be a numeric value");
+						//	ctx.status(400);
+						//	ctx.result("Candy ID must be a numeric value");
 						//}
 					//});
 				//});
 				
 				// localhost:8080/pets/8
-				path("candy/{id}", () -> {
+				path("/candy/{id}", () -> {
 					
 					get(ctx -> {
 						try {
-							int candyId = Integer.parseInt(ctx.pathParam("id")); // num format exception
+							int candyId = Integer.parseInt(ctx.pathParam("id"));
 							Candy candy = empServ.getCandyById(candyId);
 							if (candy != null)
 								ctx.json(candy);
 							else
-								ctx.status(404);
+								ctx.status(404); //should it fail return 404 not found
 						} catch (NumberFormatException e) {
 							ctx.status(400);
 							ctx.result("Candy ID must be a numeric value");
