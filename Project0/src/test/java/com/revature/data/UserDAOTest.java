@@ -3,6 +3,8 @@ package com.revature.data;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals; //on hold until getALLNotNull is fixed
 import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.revature.beans.User;
 import com.revature.data.postgres.UserPostgres;
@@ -48,6 +50,7 @@ public class UserDAOTest {
 		//use userdao to test that create method is not null
 	}
 	
+	@Order(1)
 	@Test
 	public void getByUsernameWhenUsernameExists() {
 		//setup
@@ -59,7 +62,7 @@ public class UserDAOTest {
 		//still has issues
 	}
 	
-
+    @Order(2)
 	public void getByUsernameButUsernameDoesNotExist() {
 		String usernameInput = "qazwsxedcrfv";
 		User userOutput = userDAO.getByUsername(usernameInput);

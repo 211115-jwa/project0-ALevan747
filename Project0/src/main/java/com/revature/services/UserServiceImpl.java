@@ -2,8 +2,6 @@ package com.revature.services;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.HashSet;
-
 import com.revature.beans.Candy;
 import com.revature.beans.User;
 import com.revature.data.CandyDAO;
