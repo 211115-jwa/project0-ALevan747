@@ -35,8 +35,8 @@ public class CandyApp {
 			path("/candy", () -> {
 				get(ctx -> {
 					// checking if they did /pets?species= (In this case, the user could search for flavor and brand)
-					String flavorSearch = ctx.queryParam("flavor");
-					String brandSearch = ctx.queryParam("brand");
+					String flavorSearch = ctx.queryParam("flavor=");
+					String brandSearch = ctx.queryParam("brand=");
 					//space for more strings to filter gets
 					if (flavorSearch != null && !"".equals(flavorSearch)) {
 						Set<Candy> candyFound = userServ.searchAllCandybyFlavor(flavorSearch);
@@ -59,9 +59,9 @@ public class CandyApp {
 					}
 				});
 				
+				//BUFFER
 				// localhost:8080/pets/adopt/8   in this case localhost:8080/candy/{id}
-				//path("/candy/{id}", () -> {
-					//put(ctx -> {
+				//path("/candy/brand", () -> {
 						//try {
 							//int userId = Integer.parseInt(ctx.pathParam("id")); // num format exception
 							//User newOwner = ctx.bodyAsClass(User.class);
@@ -76,7 +76,7 @@ public class CandyApp {
 				//});
 				
 				// localhost:8080/pets/8 (candy/id)
-				path("/{id}", () -> {
+				path("/{id}", () -> {   //"/{id}"
 					
 					get(ctx -> {
 						try {
@@ -88,7 +88,7 @@ public class CandyApp {
 								ctx.status(404); //should it fail return 404 not found
 						} catch (NumberFormatException e) {
 							ctx.status(400);
-							ctx.result("Candy ID must be a numeric value");
+							ctx.result("Candy ID must be a numeric value, this one");
 						}
 					});
 					
