@@ -39,7 +39,7 @@ public class CandyPostgres implements CandyDAO {
 			if (resultSet.next()) { // "next" goes to the next row in the result set (or the first row)
 				// getting the ID value from the result set
 				generatedId = resultSet.getInt("id");
-				conn.commit(); // running the TCL commit statement
+				conn.commit();
 			} else {
 				conn.rollback();
 			}

@@ -42,10 +42,10 @@ public class CandyApp {
 						Set<Candy> candyFound = userServ.searchAllCandybyFlavor(flavorSearch);
 						ctx.json(candyFound);
 					} else if(brandSearch != null && !"".equals(brandSearch)) {
-						//Set<Candy> candyFound2 = userServ.search
-						
+						Set<Candy> candyFound2 = userServ.searchAllCandyByBrand(brandSearch);
+						ctx.json(candyFound2);
 					}else {
-						Set<Candy> allCandy = userServ.getAll(); //viewAllCandy() old
+						Set<Candy> allCandy = userServ.getAll(); //when no ?brand/flavor is entered
 						ctx.json(allCandy); 
 					}
 				});
@@ -70,13 +70,13 @@ public class CandyApp {
 							//ctx.json(newOwner);
 						//} catch (NumberFormatException e) {
 						//	ctx.status(400);
-						//	ctx.result("Candy ID must be a numeric value");
+							//ctx.result("Candy ID must be a numeric value");
 						//}
 					//});
 				//});
 				
-				// localhost:8080/pets/8
-				path("/candy/{id}", () -> {
+				// localhost:8080/pets/8 (candy/id)
+				path("/{id}", () -> {
 					
 					get(ctx -> {
 						try {

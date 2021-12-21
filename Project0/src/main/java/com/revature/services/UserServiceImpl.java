@@ -1,7 +1,8 @@
 package com.revature.services;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.HashSet;
 
 import com.revature.beans.Candy;
 import com.revature.beans.User;
@@ -52,22 +53,32 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Set<Candy> searchAllCandybyFlavor(String flavor) {
 		Set<Candy> inStockCandy = candyDAO.getInStock("yes");
-		//not streaming here
-		Set<Candy> candyByFlavor = new HashSet<>();
-		for(Candy candy : inStockCandy) {
-			if(candy.getFlavor().toLowerCase().contains(flavor.toLowerCase())) {
-				candyByFlavor.add(candy);
-			}
-		}
+		//chose streaming path
+		inStockCandy = inStockCandy.stream()
+				.filter(candy -> candy.getFlavor().toLowerCase().contains(flavor.toLowerCase()))
+                .collect(Collectors.toSet());
+		
 		return inStockCandy;
 	}
+	
 	@Override
 	public Set<Candy> searchAvailableCandybyFlavor(String Flavor) { //example that is obsolete with searchallCandyByFlavor
-		//to stream? or not to stream?
+		//to stream? or not to stream? Depreciated
 		return null;
 	}
 	@Override
 	public Set<Candy> getAll() {
 		return candyDAO.getAll();
+	}
+	@Override
+	public Set<Candy> searchAllCandyByBrand(String brand) {
+		Set<Candy> inStockCandy = candyDAO.getInStock("yes");
+		//chose streaming path
+		inStockCandy = inStockCandy.stream()
+				.filter(candy -> candy.getBrand().toLowerCase().contains(brand.toLowerCase()))
+                .collect(Collectors.toSet());
+		
+		return inStockCandy;
+
 	}
 }
