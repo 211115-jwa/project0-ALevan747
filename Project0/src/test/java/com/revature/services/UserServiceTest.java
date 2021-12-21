@@ -169,14 +169,14 @@ public class UserServiceTest {
 		assertNotEquals(user, updatedUser);
 	}
 	
-	@Test
-	public void getAll() {
-		when(candyDAO.getInStock("yes")).thenReturn(mockAllCandy); //again a status or inStock boolean equivalent is needed
+	//@Test
+	//public void getAll() {
+	//	when(candyDAO.getInStock("yes")).thenReturn(mockAllCandy); //again a status or inStock boolean equivalent is needed
 		
-		Set<Candy> actualCandy = userServ.getAll();
+	//	Set<Candy> actualCandy = userServ.getAll();
 		
-		assertEquals(mockAllCandy, actualCandy);
-	}
+	//	assertEquals(mockAllCandy, actualCandy);
+	//}
 	
 
 }

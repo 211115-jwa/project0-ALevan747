@@ -1,5 +1,6 @@
 package com.revature.data;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -11,13 +12,13 @@ import com.revature.data.postgres.CandyPostgres;
 public class CandyDAOTest {
 	private CandyDAO candyDAO = new CandyPostgres();
 	
-	//@Test
+	@Test
 	//setup, call and assert
-	//public void getByIdWhenIdExists() {
-		//int idInput = 1;
-		//Candy idOutput = candyDAO.getById(idInput);
-		//assertEquals(1,idOutput.getId());
-	//}
+	public void getByIdWhenIdExists() {
+		int idInput = 1;
+		Candy idOutput = candyDAO.getById(idInput);
+	    assertEquals(1,idOutput.getId());
+	}
 	
 	@Test
 	public void getByIdWhenIdDoesNotExists() {
