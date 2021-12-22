@@ -7,7 +7,6 @@ import static io.javalin.apibuilder.ApiBuilder.put;
 import java.util.Set;
 import org.eclipse.jetty.http.HttpStatus;
 import com.revature.beans.Candy;
-import com.revature.beans.User;
 import com.revature.services.EmployeeService;
 import com.revature.services.EmployeeServiceImpl;
 import com.revature.services.UserService;

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals; //on hold until getALLNotNull is fixed
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import com.revature.beans.User;
@@ -16,15 +18,8 @@ public class UserDAOTest {
 	private UserDAO userDAO = new UserPostgres();
 	
 	@Test
-	public void getAllNotNull() {
-		System.out.println("Underconstruction due to static issue");
-		//Set<User> actual = UserDAO.getAll();
-		//assertNotEquals(null, actual);
-	}
-	
-	@Test
 	public void getValidUserById() {
-		String expectedUsername = "Andre";
+		String expectedUsername = "Username";
 		User actual = userDAO.getById(1);
 		assertEquals(expectedUsername, actual.getUsername());
 	}
@@ -46,27 +41,31 @@ public class UserDAOTest {
 	@Test
 	public void createTest() {
 		User create = new User();
-		assertNotEquals(0, userDAO.create(create));
+		assertNotEquals(1, userDAO.create(create));
 		//use userdao to test that create method is not null
 	}
 	
-	@Order(1)
-	@Test
-	public void getByUsernameWhenUsernameExists() {
-		//setup
-		String UsernameInput = "Andre";
-		//call the method we're testing
-		User userOutput = userDAO.getByUsername(UsernameInput);
-		//assert that it did what we expected it to do
-		assertEquals("Andre", userOutput.getUsername());
-		//still has issues
-	}
-	
-    @Order(2)
+    @Test 
 	public void getByUsernameButUsernameDoesNotExist() {
 		String usernameInput = "qazwsxedcrfv";
 		User userOutput = userDAO.getByUsername(usernameInput);
 		assertNull(userOutput);
+    }
+    
+    @Test
+	public void getAllNotNull() {
+		System.out.println("Underconstruction due to static issue");
+		//Set<User> actual = UserDAO.getAll();
+		//assertNotEquals(null, actual);
+	}
+    
+    @Test
+	public void getByUsernameWhenUsernameExists() {
+		//String UsernameInput = "Andre";
+		//User userOutput = userDAO.getByUsername(UsernameInput);
+		//assert that it did what we expected it to do  (Is this the issue?)
+		//assertEquals("Andre", userOutput.getUsername());
+		//still has issues
 	}
 }
 

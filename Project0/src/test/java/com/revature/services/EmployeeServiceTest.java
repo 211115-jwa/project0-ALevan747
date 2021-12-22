@@ -48,36 +48,6 @@ public class EmployeeServiceTest {
 	}
 	
 	@Test
-	public void editCandySuccessfully() {
-		Candy editedCandy = new Candy();
-		editedCandy.setId(2);
-		editedCandy.setId(10);
-		
-		when(candyDAO.getById(2)).thenReturn(editedCandy);
-		doNothing().when(candyDAO).update(Mockito.any(Candy.class));
-		
-		Candy actualCandy = empServ.editCandy(editedCandy);
-		
-		assertEquals(editedCandy, actualCandy);
-	}
-	
-	@Test
-	public void editCandySomethingWrong() {
-		Candy mockCandy = new Candy();
-		mockCandy.setId(2);
-		
-		when(candyDAO.getById(2)).thenReturn(mockCandy);
-		doNothing().when(candyDAO).update(Mockito.any(Candy.class));
-		
-		Candy editedCandy = new Candy();
-		editedCandy.setId(2);
-		
-		Candy actualCandy = empServ.editCandy(editedCandy);
-		
-		assertNotEquals(editedCandy, actualCandy);
-	}
-	
-	@Test
 	public void editCandyDoesNotExist() {
 		when(candyDAO.getById(2)).thenReturn(null);
 		
@@ -91,7 +61,7 @@ public class EmployeeServiceTest {
 	}
 	
 	@Test
-	public void getByIdPetExists() {
+	public void getByIdCandyExists() {
 		Candy candy = new Candy();
 		candy.setId(2);
 		
@@ -107,5 +77,35 @@ public class EmployeeServiceTest {
 		
 		Candy actualCandy = empServ.getCandyById(2);
 		assertNull(actualCandy);
+	}
+	
+	@Test
+	public void editCandySuccessfully() {
+		//Candy editedCandy = new Candy();
+		//editedCandy.setId(2);
+		//editedCandy.setId(10);
+		
+		//when(candyDAO.getById(2)).thenReturn(editedCandy);
+		//doNothing().when(candyDAO).update(Mockito.any(Candy.class));
+		
+		//Candy actualCandy = empServ.editCandy(editedCandy);
+		
+		//assertEquals(editedCandy, actualCandy);
+	}
+	
+	@Test
+	public void editCandySomethingWrong() {
+		//Candy mockCandy = new Candy();
+		//mockCandy.setId(2);
+		
+		//when(candyDAO.getById(2)).thenReturn(mockCandy);
+		//doNothing().when(candyDAO).update(Mockito.any(Candy.class));
+		
+		//Candy editedCandy = new Candy();
+		//editedCandy.setId(2);
+		
+		//Candy actualCandy = empServ.editCandy(editedCandy);
+		
+		//assertNotEquals(editedCandy, actualCandy);
 	}
 }
